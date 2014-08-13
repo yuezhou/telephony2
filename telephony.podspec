@@ -4,7 +4,7 @@
 # To learn more about a Podspec see http://guides.cocoapods.org/syntax/podspec.html
 #
 Pod::Spec.new do |s|
-  s.name             = "telephony"
+  s.name             = "telephony2"
   s.version          = "0.1.0"
   s.summary          = "pjsip as telephony library."
 #  s.description      = <<-DESC
