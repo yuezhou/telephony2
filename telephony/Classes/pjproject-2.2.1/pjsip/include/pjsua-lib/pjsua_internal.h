@@ -409,7 +409,7 @@ typedef struct pjsua_timer_list
  */
 struct pjsua_data
 {
-
+    pjsua_config	 ua_cfg;		/**< UA config.		*/
     /* Control: */
     pj_caching_pool	 cp;	    /**< Global pool factory.		*/
     pj_pool_t		*pool;	    /**< pjsua's private pool.		*/
@@ -454,7 +454,7 @@ struct pjsua_data
     pjsua_acc_id	 acc_ids[PJSUA_MAX_ACC]; /**< Acc sorted by prio*/
 
     /* Calls: */
-    pjsua_config	 ua_cfg;		/**< UA config.		*/
+    //pjsua_config	 ua_cfg;		/**< UA config.		*/
     unsigned		 call_cnt;		/**< Call counter.	*/
     pjsua_call		 calls[PJSUA_MAX_CALLS];/**< Calls array.	*/
     pjsua_call_id	 next_call_id;		/**< Next call id to use*/
