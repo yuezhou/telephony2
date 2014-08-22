@@ -2539,7 +2539,7 @@ PJ_DECL(pj_status_t) pjsua_transport_close( pjsua_transport_id id,
  * Maximum accounts.
  */
 #ifndef PJSUA_MAX_ACC
-#   define PJSUA_MAX_ACC	    4
+#   define PJSUA_MAX_ACC	    8
 #endif
 
 
