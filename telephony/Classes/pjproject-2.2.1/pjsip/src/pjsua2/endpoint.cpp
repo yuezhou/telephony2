@@ -809,6 +809,22 @@ void Endpoint::on_mwi_info(pjsua_acc_id acc_id,
     acc->onMwiInfo(prm);
 }
 
+void Endpoint::on_sla_info(pjsua_acc_id acc_id,
+                           pjsua_sla_info *sla_info)
+{
+    OnSlaInfoParam prm;
+    prm.state	= pjsip_evsub_get_state(sla_info->evsub);
+    prm.rdata.fromPj(*sla_info->rdata);
+    
+    Account *acc = lookupAcc(acc_id, "on_sla_info()");
+    if (!acc) {
+        /* Ignored */
+        return;
+    }
+    
+    acc->onSlaInfo(prm);
+}
+
 void Endpoint::on_buddy_state(pjsua_buddy_id buddy_id)
 {
     Buddy *buddy = (Buddy*)pjsua_buddy_get_user_data(buddy_id);
@@ -1248,6 +1264,7 @@ void Endpoint::libInit(const EpConfig &prmEpConfig) throw(Error)
     ua_cfg.cb.on_pager_status2	= &Endpoint::on_pager_status2;
     ua_cfg.cb.on_typing2	= &Endpoint::on_typing2;
     ua_cfg.cb.on_mwi_info	= &Endpoint::on_mwi_info;
+    ua_cfg.cb.on_sla_info	= &Endpoint::on_sla_info;
     ua_cfg.cb.on_buddy_state	= &Endpoint::on_buddy_state;
 
     /* Call callbacks */

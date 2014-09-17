@@ -174,6 +174,25 @@ void AccountMwiConfig::writeObject(ContainerNode &node) const throw(Error)
 
 ///////////////////////////////////////////////////////////////////////////////
 
+void AccountSlaConfig::readObject(const ContainerNode &node) throw(Error)
+{
+    ContainerNode this_node = node.readContainer("AccountSlaConfig");
+    
+    NODE_READ_BOOL    ( this_node, sla_line_enabled);
+    NODE_READ_STRING  ( this_node, line);
+}
+
+void AccountSlaConfig::writeObject(ContainerNode &node) const throw(Error)
+{
+    ContainerNode this_node = node.writeNewContainer("AccountSlaConfig");
+    
+    NODE_WRITE_BOOL    ( this_node, sla_line_enabled);
+    NODE_WRITE_STRING  ( this_node, line);
+}
+
+
+///////////////////////////////////////////////////////////////////////////////
+
 void AccountNatConfig::readObject(const ContainerNode &node) throw(Error)
 {
     ContainerNode this_node = node.readContainer("AccountNatConfig");
@@ -372,6 +391,10 @@ void AccountConfig::toPj(pjsua_acc_config &ret) const
     ret.unpublish_max_wait_time_msec = presConfig.publishShutdownWaitMsec;
     ret.pidf_tuple_id		= str2Pj(presConfig.pidfTupleId);
 
+    // AccountSlaConfig
+    ret.sla_line_enabled[1] = slaConfig.sla_line_enabled;
+    ret.line[1]	            = str2Pj(slaConfig.line);
+
     // AccountNatConfig
     ret.sip_stun_use		= natConfig.sipStunUse;
     ret.media_stun_use		= natConfig.mediaStunUse;
@@ -509,7 +532,11 @@ void AccountConfig::fromPj(const pjsua_acc_config &prm,
     // AccountMwiConfig
     mwiConfig.enabled		= PJ2BOOL(prm.mwi_enabled);
     mwiConfig.expirationSec	= prm.mwi_expires;
-
+    
+    // AccountSlaConfig
+    slaConfig.sla_line_enabled = PJ2BOOL(prm.sla_line_enabled[1]);
+    slaConfig.line	           = pj2Str(prm.line[1]);
+    
     // AccountNatConfig
     natConfig.sipStunUse	= prm.sip_stun_use;
     natConfig.mediaStunUse	= prm.media_stun_use;
@@ -599,6 +626,7 @@ void AccountConfig::readObject(const ContainerNode &node) throw(Error)
     NODE_READ_OBJ     ( this_node, callConfig);
     NODE_READ_OBJ     ( this_node, presConfig);
     NODE_READ_OBJ     ( this_node, mwiConfig);
+    NODE_READ_OBJ     ( this_node, slaConfig);
     NODE_READ_OBJ     ( this_node, natConfig);
     NODE_READ_OBJ     ( this_node, mediaConfig);
     NODE_READ_OBJ     ( this_node, videoConfig);
@@ -615,6 +643,7 @@ void AccountConfig::writeObject(ContainerNode &node) const throw(Error)
     NODE_WRITE_OBJ     ( this_node, callConfig);
     NODE_WRITE_OBJ     ( this_node, presConfig);
     NODE_WRITE_OBJ     ( this_node, mwiConfig);
+    NODE_WRITE_OBJ     ( this_node, slaConfig);
     NODE_WRITE_OBJ     ( this_node, natConfig);
     NODE_WRITE_OBJ     ( this_node, mediaConfig);
     NODE_WRITE_OBJ     ( this_node, videoConfig);

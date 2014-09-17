@@ -1240,7 +1240,8 @@ private:
                            pjsua_acc_id acc_id);
     static void on_mwi_info(pjsua_acc_id acc_id,
                             pjsua_mwi_info *mwi_info);
-
+    static void on_sla_info(pjsua_acc_id acc_id,
+                            pjsua_sla_info *sla_info);
     static void on_buddy_state(pjsua_buddy_id buddy_id);
     // Call callbacks
     static void on_call_state(pjsua_call_id call_id, pjsip_event *e);

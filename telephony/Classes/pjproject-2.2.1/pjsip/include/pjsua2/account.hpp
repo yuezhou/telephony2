@@ -415,6 +415,39 @@ public:
      */
     virtual void writeObject(ContainerNode &node) const throw(Error);
 };
+    
+/**
+ * Account   (Message Waiting Indication) settings. This will be specified
+ * in AccountConfig.
+ */
+struct AccountSlaConfig : public PersistentObject
+{
+    /**
+     * Subscribe to message waiting indication events (RFC 3842).
+     *
+     * See also UaConfig.mwiUnsolicitedEnabled setting.
+     *
+     * Default: FALSE
+     */
+//    bool       sla_line_enabled[PJSUA_MAX_NUMBER_OF_SHARED_LINES];
+//    string     line[PJSUA_MAX_NUMBER_OF_SHARED_LINES];
+    bool       sla_line_enabled;
+    string     line;
+public:
+    /**
+     * Read this object from a container node.
+     *
+     * @param node		Container to read values from.
+     */
+    virtual void readObject(const ContainerNode &node) throw(Error);
+        
+    /**
+     * Write this object to a container node.
+     *
+     * @param node		Container to write values to.
+     */
+    virtual void writeObject(ContainerNode &node) const throw(Error);
+};
 
 /**
  * Account's NAT (Network Address Translation) settings. This will be
@@ -860,6 +893,11 @@ struct AccountConfig : public PersistentObject
     AccountMwiConfig	mwiConfig;
 
     /**
+     * SLA (Shared Line Appearance) settings.
+     */
+    AccountSlaConfig	slaConfig;
+    
+    /**
      * NAT settings.
      */
     AccountNatConfig	natConfig;
@@ -1202,6 +1240,22 @@ struct OnMwiInfoParam
      */
     SipRxData		rdata;
 };
+    
+/**
+ * Parameters for onMwiInfo() account callback.
+ */
+struct OnSlaInfoParam
+{
+    /**
+     * SLA subscription state.
+     */
+    pjsip_evsub_state	state;
+        
+    /**
+     * The whole message buffer.
+     */
+    SipRxData		rdata;
+};
 
 /**
  * Parameters for presNotify() account method.
@@ -1536,6 +1590,17 @@ public:
      * @param prm	    Callback parameter.
      */
     virtual void onMwiInfo(OnMwiInfoParam &prm)
+    { PJ_UNUSED_ARG(prm); }
+    
+    /**
+     * Notification about SLA (Shared Line Appearance) status change.
+     * This callback can be called upon the status change of the
+     * SUBSCRIBE request (for example, 202/Accepted to SUBSCRIBE is received)
+     * or when a NOTIFY reqeust is received.
+     *
+     * @param prm	    Callback parameter.
+     */
+    virtual void onSlaInfo(OnSlaInfoParam &prm)
     { PJ_UNUSED_ARG(prm); }
 
 protected:
