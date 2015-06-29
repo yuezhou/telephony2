@@ -1,7 +1,12 @@
 #!/bin/sh
 
+#
+# Author: Alejandro Orellana
+#
+
 SOURCE_URL="http://www.pjsip.org/release/1.14.2/pjproject-1.14.2.tar.bz2"
 PROJECT_DIR="pjproject-2.2.1"
+PROJECT_VERSION=`uname -r`
 
 copy_libs () {
     DST=${1}
@@ -76,7 +81,7 @@ copy_macos_libs () {
     if [ ! -d pjlib/lib-${DST}/ ]; then
         mkdir pjlib/lib-${DST}/
     fi
-    cp pjlib/lib/libpj-x86_64-apple-darwin12.5.0.a pjlib/lib-${DST}/libpj-arm-apple-darwin9.a
+    cp pjlib/lib/libpj-$PREFIX_NAME.a pjlib/lib-${DST}/libpj-arm-apple-darwin9.a
 
     if [ -d pjlib-util/lib-${DST}/ ]; then
         rm -rf pjlib-util/lib-${DST}/
@@ -84,7 +89,7 @@ copy_macos_libs () {
     if [ ! -d pjlib-util/lib-${DST}/ ]; then
         mkdir pjlib-util/lib-${DST}/
     fi
-    cp pjlib-util/lib/libpjlib-util-x86_64-apple-darwin12.5.0.a pjlib-util/lib-${DST}/libpjlib-util-arm-apple-darwin9.a
+    cp pjlib-util/lib/libpjlib-util-$PREFIX_NAME.a pjlib-util/lib-${DST}/libpjlib-util-arm-apple-darwin9.a
 
     if [ -d pjmedia/lib-${DST}/ ]; then
         rm -rf pjmedia/lib-${DST}/
@@ -92,11 +97,11 @@ copy_macos_libs () {
     if [ ! -d pjmedia/lib-${DST}/ ]; then
         mkdir pjmedia/lib-${DST}/
     fi
-    cp pjmedia/lib/libpjmedia-x86_64-apple-darwin12.5.0.a pjmedia/lib-${DST}/libpjmedia-arm-apple-darwin9.a
-    cp pjmedia/lib/libpjmedia-audiodev-x86_64-apple-darwin12.5.0.a pjmedia/lib-${DST}/libpjmedia-audiodev-arm-apple-darwin9.a
-    cp pjmedia/lib/libpjmedia-codec-x86_64-apple-darwin12.5.0.a pjmedia/lib-${DST}/libpjmedia-codec-arm-apple-darwin9.a
-    cp pjmedia/lib/libpjmedia-videodev-x86_64-apple-darwin12.5.0.a pjmedia/lib-${DST}/libpjmedia-videodev-arm-apple-darwin9.a
-    cp pjmedia/lib/libpjsdp-x86_64-apple-darwin12.5.0.a pjmedia/lib-${DST}/libpjsdp-arm-apple-darwin9.a
+    cp pjmedia/lib/libpjmedia-$PREFIX_NAME.a pjmedia/lib-${DST}/libpjmedia-arm-apple-darwin9.a
+    cp pjmedia/lib/libpjmedia-audiodev-$PREFIX_NAME.a pjmedia/lib-${DST}/libpjmedia-audiodev-arm-apple-darwin9.a
+    cp pjmedia/lib/libpjmedia-codec-$PREFIX_NAME.a pjmedia/lib-${DST}/libpjmedia-codec-arm-apple-darwin9.a
+    cp pjmedia/lib/libpjmedia-videodev-$PREFIX_NAME.a pjmedia/lib-${DST}/libpjmedia-videodev-arm-apple-darwin9.a
+    cp pjmedia/lib/libpjsdp-$PREFIX_NAME.a pjmedia/lib-${DST}/libpjsdp-arm-apple-darwin9.a
 
     if [ -d pjnath/lib-${DST}/ ]; then
         rm -rf pjnath/lib-${DST}/
@@ -104,7 +109,7 @@ copy_macos_libs () {
     if [ ! -d pjnath/lib-${DST}/ ]; then
         mkdir pjnath/lib-${DST}/
     fi
-    cp pjnath/lib/libpjnath-x86_64-apple-darwin12.5.0.a pjnath/lib-${DST}/libpjnath-arm-apple-darwin9.a
+    cp pjnath/lib/libpjnath-$PREFIX_NAME.a pjnath/lib-${DST}/libpjnath-arm-apple-darwin9.a
 
     if [ -d pjsip/lib-${DST}/ ]; then
         rm -rf pjsip/lib-${DST}/
@@ -112,10 +117,10 @@ copy_macos_libs () {
     if [ ! -d pjsip/lib-${DST}/ ]; then
         mkdir pjsip/lib-${DST}/
     fi
-    cp pjsip/lib/libpjsip-x86_64-apple-darwin12.5.0.a pjsip/lib-${DST}/libpjsip-arm-apple-darwin9.a
-    cp pjsip/lib/libpjsip-simple-x86_64-apple-darwin12.5.0.a pjsip/lib-${DST}/libpjsip-simple-arm-apple-darwin9.a
-    cp pjsip/lib/libpjsip-ua-x86_64-apple-darwin12.5.0.a pjsip/lib-${DST}/libpjsip-ua-arm-apple-darwin9.a
-    cp pjsip/lib/libpjsua-x86_64-apple-darwin12.5.0.a pjsip/lib-${DST}/libpjsua-arm-apple-darwin9.a
+    cp pjsip/lib/libpjsip-$PREFIX_NAME.a pjsip/lib-${DST}/libpjsip-arm-apple-darwin9.a
+    cp pjsip/lib/libpjsip-simple-$PREFIX_NAME.a pjsip/lib-${DST}/libpjsip-simple-arm-apple-darwin9.a
+    cp pjsip/lib/libpjsip-ua-$PREFIX_NAME.a pjsip/lib-${DST}/libpjsip-ua-arm-apple-darwin9.a
+    cp pjsip/lib/libpjsua-$PREFIX_NAME.a pjsip/lib-${DST}/libpjsua-arm-apple-darwin9.a
 
     if [ -d third_party/lib-${DST}/ ]; then
         rm -rf third_party/lib-${DST}/
@@ -123,12 +128,12 @@ copy_macos_libs () {
     if [ ! -d third_party/lib-${DST}/ ]; then
         mkdir third_party/lib-${DST}/
     fi
-    cp third_party/lib/libg7221codec-x86_64-apple-darwin12.5.0.a third_party/lib-${DST}/libg7221codec-arm-apple-darwin9.a
-    cp third_party/lib/libgsmcodec-x86_64-apple-darwin12.5.0.a third_party/lib-${DST}/libgsmcodec-arm-apple-darwin9.a
-    cp third_party/lib/libilbccodec-x86_64-apple-darwin12.5.0.a third_party/lib-${DST}/libilbccodec-arm-apple-darwin9.a
-    cp third_party/lib/libresample-x86_64-apple-darwin12.5.0.a third_party/lib-${DST}/libresample-arm-apple-darwin9.a
-    cp third_party/lib/libspeex-x86_64-apple-darwin12.5.0.a third_party/lib-${DST}/libspeex-arm-apple-darwin9.a
-    cp third_party/lib/libsrtp-x86_64-apple-darwin12.5.0.a third_party/lib-${DST}/libsrtp-arm-apple-darwin9.a
+    cp third_party/lib/libg7221codec-$PREFIX_NAME.a third_party/lib-${DST}/libg7221codec-arm-apple-darwin9.a
+    cp third_party/lib/libgsmcodec-$PREFIX_NAME.a third_party/lib-${DST}/libgsmcodec-arm-apple-darwin9.a
+    cp third_party/lib/libilbccodec-$PREFIX_NAME.a third_party/lib-${DST}/libilbccodec-arm-apple-darwin9.a
+    cp third_party/lib/libresample-$PREFIX_NAME.a third_party/lib-${DST}/libresample-arm-apple-darwin9.a
+    cp third_party/lib/libspeex-$PREFIX_NAME.a third_party/lib-${DST}/libspeex-arm-apple-darwin9.a
+    cp third_party/lib/libsrtp-$PREFIX_NAME.a third_party/lib-${DST}/libsrtp-arm-apple-darwin9.a
 }
 
 lipo_libs () {
@@ -316,11 +321,11 @@ copy_libs armv7 > /dev/null
 echo "Building for armv7s..."
 make distclean > /dev/null 2>&1
 ARCH='-arch armv7s' \
-    ./configure-iphone 
-make dep 
+    ./configure-iphone > /dev/null
+make dep > /dev/null
 make clean > /dev/null
-make 
-copy_libs armv7s 
+make > /dev/null
+copy_libs armv7s > /dev/null
 
 echo "Building for arm64..."
 make distclean > /dev/null 2>&1
@@ -342,7 +347,7 @@ make clean > /dev/null
 make > /dev/null 2>&1
 copy_libs iPhoneSimulator
 
-echo "Building for for Mac x86_64"
+echo "Building for for Mac x86_64 $PROJECT_VERSION"
 echo "Creating config.h..."
 echo "#define PJMEDIA_AUDIO_DEV_HAS_PORTAUDIO   0\n#include <pj/config_site_sample.h>" > ./pjlib/include/pj/config_site.h
 make distclean > /dev/null
@@ -350,13 +355,15 @@ make distclean > /dev/null
 make dep > /dev/null 2>&1 
 make clean  > /dev/null 2>&1
 make  > /dev/null 2>&1
-copy_macos_libs macos
+PREFIX_NAME=`egrep "Setting PJ_OS_NAME to" ./config.log  | cut -d " " -f 6`
+echo "Building for for Mac x86_64 $PREFIX_NAME"
+copy_macos_libs macos > /dev/null 2>&1
 
 echo "Making universal lib..."
 make distclean > /dev/null
 lipo_libs universal > /dev/null 2>&1
 echo "Creating pjsip static library..."
-cp `find . -name "*arm-apple-darwin*.a" -print | grep "lib-universal"` ../universal > /dev/null 2>&1
+cp `find . -name "*arm-apple-darwin9.a" -print | grep "lib-universal"` ../universal > /dev/null 2>&1
 cd ../universal/ > /dev/null 2>&1
 libtool -static -o ./libpjsip-universal-apple.a `find . -name "*arm-apple*.a"` > /dev/null 2>&1
 rm -f ../${PROJECT_DIR}/libpjsip-universal-apple.a > /dev/null 2>&1
