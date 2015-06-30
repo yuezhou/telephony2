@@ -36,7 +36,7 @@ Pod::Spec.new do |s|
   s.ios.exclude_files = 'Classes/osx'
   s.osx.exclude_files = 'Classes/ios'
   s.public_header_files = 'telephony/Classes/pjproject-2.2.1/**/*.h'
-  s.frameworks = 'lib'
+  #s.frameworks = 'lib'
   # s.dependency 'JSONKit', '~> 1.4'
   s.xcconfig = {'OTHER_CFLAGS' => '-DPJ_AUTOCONF=1', 'HEADER_SEARCH_PATHS' => '${PODS_ROOT}/telephony/telephony/Classes/pjproject-2.2.1/pjsip/include ${PODS_ROOT}/telephony/telephony/Classes/pjproject-2.2.1/pjsip/include/pjsua-lib ${PODS_ROOT}/telephony/telephony/Classes/pjproject-2.2.1/pjlib/include ${PODS_ROOT}/telephony/telephony/Classes/pjproject-2.2.1/pjlib-util/include ${PODS_ROOT}/telephony/telephony/Classes/pjproject-2.2.1/pjmedia/include ${PODS_ROOT}/telephony/telephony/Classes/pjproject-2.2.1/pjnath/include ${PODS_ROOT}/telephony/telephony/Classes/pjproject-2.2.1/third_party/include'}
 
